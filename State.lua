@@ -283,12 +283,14 @@ function State:stepSingle()
          flag = self.current:stepSingle()
    end
 
+
    if flag ~= 0 then
       local flag = 0
       for _, focal_tran in pairs(self.transitions) do 
          -- focal_tran would be a transition table
          if    (type(focal_tran.condition) == 'function' and focal_tran.condition(self.data) or
             type(focal_tran.condition) ~= 'function' and focal_tran.condition   ) and
+               --something wrong with the non function condition
             self.substates[focal_tran.from] == self.current then
                --print("from:",self.substates[focal_tran.from])   --for debug
                --print("to",self.substates[focal_tran.to])        --for debug
