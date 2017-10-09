@@ -36,6 +36,7 @@ statemachine = State:create
       {condition =   function () 
                         a = robot.proximity
                         if a[1].value ~= 0 or a[24].value~=0 or 
+                           a[3].value ~= 0 or a[4].value~=0 or
                            a[2].value ~= 0 or a[23].value~=0 then
                            return true 
                         else
@@ -47,6 +48,9 @@ statemachine = State:create
                         a = robot.proximity
                         if a[1].value ~= 0 or a[24].value~=0 or 
                            a[2].value ~= 0 or a[23].value~=0 or
+                           a[5].value ~= 0 or a[6].value~=0 or
+                           a[7].value ~= 0 or a[8].value~=0 or
+                           a[9].value ~= 0 or a[10].value~=0 or
                            a[3].value ~= 0 or a[4].value~=0 then
                            return false
                         else
@@ -59,6 +63,9 @@ statemachine = State:create
                         a = robot.proximity
                         if a[1].value ~= 0 or a[24].value~=0 or 
                            a[2].value ~= 0 or a[23].value~=0 or
+                           a[5].value ~= 0 or a[6].value~=0 or
+                           a[7].value ~= 0 or a[8].value~=0 or
+                           a[9].value ~= 0 or a[10].value~=0 or
                            a[3].value ~= 0 or a[4].value~=0 then
                            return true 
                         else
@@ -78,8 +85,7 @@ function step()
    statemachine:stepSingle()
    --[[
    robot.leds.set_single_color(counter+1, "red")
-   counter = (counter + 1) % 13
-
+   counter = (counter + 1) % 
    a = robot.proximity
    if a[1].value ~= 0 or a[24].value~=0 or 
       a[2].value ~= 0 or a[23].value~=0 then
