@@ -1,33 +1,88 @@
 State = require("State")
 
+
 statemachine = State:create
 {
    id = "root_machine",
    substates = 
    {
       goStraight = State:create
-         {
-            method = function()
-                        print("goStraight")
-                        robot.wheels.set_velocity(5,5)
-                        return 0
-                     end
-         },
+         {method = function() print("goStraight"); robot.wheels.set_velocity(5,5);return 0;end},
       turnLeft = State:create
-         {
-            method = function()
-                        --print("turnLeft")
-                        robot.wheels.set_velocity(-5,5)
-                        return 0
-                     end
-         },
+         {method = function() print("turnLeft"); robot.wheels.set_velocity(-5,5);return 0; end},
+      turnRight = State:create
+         {method = function() print("turnRight");robot.wheels.set_velocity(5,-5);return 0;end},
       goAlongWall = State:create
          {
-            method = function()
-                        print("goAlongWall")
-                        robot.wheels.set_velocity(5.1,5)
-                        return 0
-                     end
+            id = "goAlongWall",
+            substates = 
+            {
+               forward = State:create
+               { method = function() print("subgo");robot.wheels.set_velocity(5,5) end },
+               forwardLeft = State:create
+               { method = function() print("subleft");robot.wheels.set_velocity(-5,5) end },
+               forwardRight = State:create
+               { method = function() print("subright");robot.wheels.set_velocity(5,-5) end },
+            },
+            transitions =
+            {
+               {condition = function () return true end, from = "INIT", to = "forward"},
+               {condition =   function () 
+                                 a = robot.proximity
+                                 if  a[19].value ~= 0 and 
+                                     a[20].value ~= 0 and
+                                     a[21].value ~= 0 then
+                                       return true 
+                                 else
+                                       return false
+                                 end
+                              end, 
+                   from = "forward", to = "forwardLeft"},
+               {condition =   function () 
+                                 a = robot.proximity
+                                 if  a[19].value ~= 0 and 
+                                     a[21].value == 0 then
+                                       return true 
+                                 else
+                                       return false
+                                 end
+                              end, 
+                   from = "forwardLeft", to = "forward"},
+               {condition =   function () 
+                                 a = robot.proximity
+                                 if  a[19].value == 0 and 
+                                     a[20].value == 0 and
+                                     a[21].value == 0 then
+                                       return true 
+                                 else
+                                       return false
+                                 end
+                              end, 
+                   from = "forward", to = "forwardRight"},
+               {condition =   function () 
+                                 a = robot.proximity
+                                 if  a[19].value ~= 0 and 
+                                     a[21].value == 0 then
+                                       return true 
+                                 else
+                                       return false
+                                 end
+                              end, 
+                   from = "forwardRight", to = "forward"},
+               {condition =   function () 
+                        a = robot.proximity
+                        if a[1].value ~= 0 or a[22].value~=0 or 
+                           a[2].value ~= 0 or a[23].value~=0 or
+                           a[3].value ~= 0 or a[24].value~=0 then
+                           return true 
+                        else
+                           return false
+                        end
+                     end, 
+                 from = "forward", to = "forwardLeft"},
+                 --from = "forward", to = "EXIT"},
+            },
+            method = function() print("subentry");robot.wheels.set_velocity(5,5) end,
          },
    },
    transitions =
@@ -35,9 +90,9 @@ statemachine = State:create
       {condition = function () return true end, from = "INIT", to = "goStraight"},
       {condition =   function () 
                         a = robot.proximity
-                        if a[1].value ~= 0 or a[24].value~=0 or 
-                           a[3].value ~= 0 or a[4].value~=0 or
-                           a[2].value ~= 0 or a[23].value~=0 then
+                        if a[1].value ~= 0 or a[22].value~=0 or 
+                           a[2].value ~= 0 or a[23].value~=0 or
+                           a[3].value ~= 0 or a[24].value~=0 then
                            return true 
                         else
                            return false
@@ -46,12 +101,9 @@ statemachine = State:create
             from = "goStraight", to = "turnLeft"},
       {condition =   function () 
                         a = robot.proximity
-                        if a[1].value ~= 0 or a[24].value~=0 or 
+                        if a[1].value ~= 0 or a[22].value~=0 or 
                            a[2].value ~= 0 or a[23].value~=0 or
-                           a[5].value ~= 0 or a[6].value~=0 or
-                           a[7].value ~= 0 or a[8].value~=0 or
-                           a[9].value ~= 0 or a[10].value~=0 or
-                           a[3].value ~= 0 or a[4].value~=0 then
+                           a[3].value ~= 0 or a[24].value~=0 then
                            return false
                         else
                            return true
@@ -61,18 +113,39 @@ statemachine = State:create
       ---[[
       {condition =   function () 
                         a = robot.proximity
-                        if a[1].value ~= 0 or a[24].value~=0 or 
+                        if a[1].value ~= 0 or a[22].value~=0 or 
                            a[2].value ~= 0 or a[23].value~=0 or
-                           a[5].value ~= 0 or a[6].value~=0 or
-                           a[7].value ~= 0 or a[8].value~=0 or
-                           a[9].value ~= 0 or a[10].value~=0 or
-                           a[3].value ~= 0 or a[4].value~=0 then
+                           a[3].value ~= 0 or a[24].value~=0 then
                            return true 
                         else
                            return false
                         end
                      end, 
             from = "goAlongWall", to = "turnLeft"},
+      --[[
+      {condition =   function () 
+                        a = robot.proximity
+                        if a[16].value == 0 and a[19].value~=0 and
+                           a[17].value ~= 0 and a[20].value~=0 and
+                           a[18].value ~= 0 and a[21].value==0 then
+                           return true 
+                        else
+                           return false
+                        end
+                     end, 
+            from = "goStraight", to = "turnRight"},
+      {condition =   function () 
+                        a = robot.proximity
+                        if a[16].value == 0 and a[19].value~=0 and
+                           a[17].value ~= 0 and a[20].value~=0 and
+                           a[18].value ~= 0 and a[21].value==0 then
+                           return false 
+                        else
+                           return true
+                        end
+                     end, 
+            from = "turnRight", to = "goStraight"},
+      --]]
       --]]
    }
 }
