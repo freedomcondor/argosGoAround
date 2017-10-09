@@ -16,7 +16,7 @@ statemachine = State:create
       turnLeft = State:create
          {
             method = function()
-                        print("turnLeft")
+                        --print("turnLeft")
                         robot.wheels.set_velocity(-5,5)
                         return 0
                      end
