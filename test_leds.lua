@@ -4,6 +4,7 @@ State = require("State")
 statemachine = State:create
 {
    id = "root_machine",
+   initial = "goStraight",
    substates = 
    {
       goStraight = State:create
@@ -15,79 +16,57 @@ statemachine = State:create
       goAlongWall = State:create
          {
             id = "goAlongWall",
+            initial = "forward",
             substates = 
             {
                forward = State:create
-               { method = function() print("subgo");robot.wheels.set_velocity(5,5) end },
-               forwardLeft = State:create
-               { method = function() print("subleft");robot.wheels.set_velocity(-5,5) end },
-               forwardRight = State:create
-               { method = function() print("subright");robot.wheels.set_velocity(5,-5) end },
-            },
-            transitions =
-            {
-               {condition = function () return true end, from = "INIT", to = "forward"},
-               {condition =   function () 
+               { method = function() print("subgo");robot.wheels.set_velocity(5,5) 
                                  a = robot.proximity
-                                 if  a[19].value ~= 0 and 
+                                 if a[1].value ~= 0 or a[22].value~=0 or 
+                                    a[2].value ~= 0 or a[23].value~=0 or
+                                    a[3].value ~= 0 or a[24].value~=0 then
+                                       --return "forwardLeft"
+                                       return "EXIT"
+                                 elseif  a[19].value ~= 0 and 
                                      a[20].value ~= 0 and
                                      a[21].value ~= 0 then
-                                       return true 
+                                       return "forwardLeft"
+                                 elseif a[19].value == 0 and 
+                                         a[20].value == 0 and
+                                         a[21].value == 0 then
+                                       return "forwardRight"
                                  else
                                        return false
                                  end
-                              end, 
-                   from = "forward", to = "forwardLeft"},
-               {condition =   function () 
+                           end 
+               },
+               forwardLeft = State:create
+               { method = function() print("subleft");robot.wheels.set_velocity(0,5) 
                                  a = robot.proximity
                                  if  a[19].value ~= 0 and 
                                      a[21].value == 0 then
-                                       return true 
+                                       return "forward"
                                  else
                                        return false
                                  end
-                              end, 
-                   from = "forwardLeft", to = "forward"},
-               {condition =   function () 
-                                 a = robot.proximity
-                                 if  a[19].value == 0 and 
-                                     a[20].value == 0 and
-                                     a[21].value == 0 then
-                                       return true 
-                                 else
-                                       return false
-                                 end
-                              end, 
-                   from = "forward", to = "forwardRight"},
-               {condition =   function () 
+                          end 
+               },
+               forwardRight = State:create
+               { method = function() print("subright");robot.wheels.set_velocity(5,0) 
                                  a = robot.proximity
                                  if  a[19].value ~= 0 and 
                                      a[21].value == 0 then
-                                       return true 
+                                       return "forward"
                                  else
-                                       return false
+                                       return false 
                                  end
-                              end, 
-                   from = "forwardRight", to = "forward"},
-               {condition =   function () 
-                        a = robot.proximity
-                        if a[1].value ~= 0 or a[22].value~=0 or 
-                           a[2].value ~= 0 or a[23].value~=0 or
-                           a[3].value ~= 0 or a[24].value~=0 then
-                           return true 
-                        else
-                           return false
-                        end
-                     end, 
-                 from = "forward", to = "forwardLeft"},
-                 --from = "forward", to = "EXIT"},
+                           end },
             },
             method = function() print("subentry");robot.wheels.set_velocity(5,5) end,
          },
    },
    transitions =
    {
-      {condition = function () return true end, from = "INIT", to = "goStraight"},
       {condition =   function () 
                         a = robot.proximity
                         if a[1].value ~= 0 or a[22].value~=0 or 
@@ -122,31 +101,6 @@ statemachine = State:create
                         end
                      end, 
             from = "goAlongWall", to = "turnLeft"},
-      --[[
-      {condition =   function () 
-                        a = robot.proximity
-                        if a[16].value == 0 and a[19].value~=0 and
-                           a[17].value ~= 0 and a[20].value~=0 and
-                           a[18].value ~= 0 and a[21].value==0 then
-                           return true 
-                        else
-                           return false
-                        end
-                     end, 
-            from = "goStraight", to = "turnRight"},
-      {condition =   function () 
-                        a = robot.proximity
-                        if a[16].value == 0 and a[19].value~=0 and
-                           a[17].value ~= 0 and a[20].value~=0 and
-                           a[18].value ~= 0 and a[21].value==0 then
-                           return false 
-                        else
-                           return true
-                        end
-                     end, 
-            from = "turnRight", to = "goStraight"},
-      --]]
-      --]]
    }
 }
 
