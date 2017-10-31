@@ -31,6 +31,14 @@
 
   </controllers>
 
+  <!-- Loop Function -->
+  <!--loop_functions library="/path/to/libmy_loop_functions.so" label="my_loop_functions" /-->
+  <loop_functions library="loopFunction/build/libtestLoopFunction.so" label="testLoopFunction">
+  	<entity id="testen">
+		<test id = "test"/>	
+  	</entity>
+  </loop_functions>
+
 
   <!-- *********************** -->
   <!-- * Arena configuration * -->
