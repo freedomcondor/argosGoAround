@@ -4,13 +4,13 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/harry/argosGoAround/loopFunction/testLoopFunction.cpp" "/home/harry/argosGoAround/loopFunction/build/CMakeFiles/testLoopFunction.dir/testLoopFunction.cpp.o"
+  "/Users/harry/Desktop/argosGoAround/loopFunction/testLoopFunction.cpp" "/Users/harry/Desktop/argosGoAround/loopFunction/build/CMakeFiles/testLoopFunction.dir/testLoopFunction.cpp.o"
   )
-set(CMAKE_CXX_COMPILER_ID "GNU")
+set(CMAKE_CXX_COMPILER_ID "Clang")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/usr/include/lua5.2"
+  "/usr/local/include"
   )
 
 # Targets to which this target links.
