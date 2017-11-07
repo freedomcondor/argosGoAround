@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project( testLoopFunction )
 
+#lua is needed by one of .h files of argos
 find_package( Lua REQUIRED )
 #${LUA_INCLUDE_DIR}
 #${LUA_LIBRARIES}

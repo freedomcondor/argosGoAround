@@ -59,7 +59,7 @@
       <body position="0.75,-.05,0" orientation="270,0,0" />
     </box>
 
-    <cylinder id="obstacle" radius=".05" height="0.1" movable="false" mass="1">
+    <cylinder id="obstacle" radius=".05" height="0.1" movable="true" mass="1">
       <body position="0,0.5,0" orientation="0,0,0" />
     </cylinder>
 
@@ -75,6 +75,7 @@
   <!-- ******************* -->
   <physics_engines>
     <dynamics2d id="dyn2d" iterations="20"/>
+    <!--pointmass3d id="pm3d" iterations="20"/-->
   </physics_engines>
 
   <media>

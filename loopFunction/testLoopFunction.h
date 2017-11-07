@@ -1,5 +1,6 @@
 #include <argos3/core/simulator/loop_functions.h>
 #include <argos3/plugins/simulator/entities/cylinder_entity.h>
+#include <argos3/plugins/simulator/entities/box_entity.h>
 
 using namespace argos;
 
@@ -14,4 +15,5 @@ public:
 private:
 	int flag;
 	CCylinderEntity* pcCylinder;
+	CBoxEntity* pcBox;
 };

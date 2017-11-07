@@ -8,11 +8,17 @@ statemachine = State:create
    substates = 
    {
       goStraight = State:create
-         {method = function() print("goStraight"); robot.wheels.set_velocity(5,5);return 0;end},
+         {method = function() 
+			 --print("goStraight"); 
+			 robot.wheels.set_velocity(5,5);return 0;end},
       turnLeft = State:create
-         {method = function() print("turnLeft"); robot.wheels.set_velocity(-5,5);return 0; end},
+         {method = function() 
+			 --print("turnLeft"); 
+			 robot.wheels.set_velocity(-5,5);return 0; end},
       turnRight = State:create
-         {method = function() print("turnRight");robot.wheels.set_velocity(5,-5);return 0;end},
+         {method = function() 
+			 --print("turnRight");
+			 robot.wheels.set_velocity(5,-5);return 0;end},
       goAlongWall = State:create
          {
             id = "goAlongWall",
@@ -20,49 +26,59 @@ statemachine = State:create
             substates = 
             {
                forward = State:create
-               { method = function() print("subgo");robot.wheels.set_velocity(5,5) 
-                                 a = robot.proximity
-                                 if a[1].value ~= 0 or a[22].value~=0 or 
-                                    a[2].value ~= 0 or a[23].value~=0 or
-                                    a[3].value ~= 0 or a[24].value~=0 then
-                                       --return "forwardLeft"
-                                       return "EXIT"
-                                 elseif  a[19].value ~= 0 and 
-                                     a[20].value ~= 0 and
-                                     a[21].value ~= 0 then
-                                       return "forwardLeft"
-                                 elseif a[19].value == 0 and 
-                                         a[20].value == 0 and
-                                         a[21].value == 0 then
-                                       return "forwardRight"
-                                 else
-                                       return false
-                                 end
-                           end 
+               { method = 	function() 
+				   				--print("subgo");
+								robot.wheels.set_velocity(5,5) 
+                                a = robot.proximity
+                                if a[1].value ~= 0 or a[22].value~=0 or 
+                                   a[2].value ~= 0 or a[23].value~=0 or
+                                   a[3].value ~= 0 or a[24].value~=0 then
+                                      --return "forwardLeft"
+                                      return "EXIT"
+                                elseif  a[19].value ~= 0 and 
+                                    a[20].value ~= 0 and
+                                    a[21].value ~= 0 then
+                                      return "forwardLeft"
+                                elseif a[19].value == 0 and 
+                                        a[20].value == 0 and
+                                        a[21].value == 0 then
+                                      return "forwardRight"
+                                else
+                                      return false
+                                end
+                           	end 
                },
                forwardLeft = State:create
-               { method = function() print("subleft");robot.wheels.set_velocity(0,5) 
-                                 a = robot.proximity
-                                 if  a[19].value ~= 0 and 
-                                     a[21].value == 0 then
-                                       return "forward"
-                                 else
-                                       return false
-                                 end
-                          end 
+               { method = 	function() 
+				   				--print("subleft");
+								robot.wheels.set_velocity(0,5) 
+                                a = robot.proximity
+                                if  a[19].value ~= 0 and 
+                                    a[21].value == 0 then
+                                      return "forward"
+                                else
+                                      return false
+                                end
+                          	end 
                },
                forwardRight = State:create
-               { method = function() print("subright");robot.wheels.set_velocity(5,0) 
-                                 a = robot.proximity
-                                 if  a[19].value ~= 0 and 
-                                     a[21].value == 0 then
-                                       return "forward"
-                                 else
-                                       return false 
-                                 end
-                           end },
+               { method = 	function() 
+				   				--print("subright");
+								robot.wheels.set_velocity(5,0) 
+                                a = robot.proximity
+                                if  a[19].value ~= 0 and 
+                                    a[21].value == 0 then
+                                      return "forward"
+                                else
+                                      return false 
+                                end
+                           end 
+			   },
             },
-            method = function() print("subentry");robot.wheels.set_velocity(5,5) end,
+            method = 	function() 
+							--print("subentry");
+							robot.wheels.set_velocity(5,5) 
+						end
          },
    },
    transitions =

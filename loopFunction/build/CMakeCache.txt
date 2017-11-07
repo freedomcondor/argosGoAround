@@ -175,15 +175,6 @@ LUA_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/liblua5.2.so
 LUA_MATH_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libm.so
 
 //Value Computed by CMake
-Project_BINARY_DIR:STATIC=/home/harry/argosGoAround/loopFunction/build
-
-//Value Computed by CMake
-Project_SOURCE_DIR:STATIC=/home/harry/argosGoAround/loopFunction
-
-//Dependencies for target
-srocs_loop_functions_LIB_DEPENDS:STATIC=
-
-//Value Computed by CMake
 testLoopFunction_BINARY_DIR:STATIC=/home/harry/argosGoAround/loopFunction/build
 
 //Dependencies for the target
@@ -191,18 +182,6 @@ testLoopFunction_LIB_DEPENDS:STATIC=general;/usr/lib/x86_64-linux-gnu/liblua5.2.
 
 //Value Computed by CMake
 testLoopFunction_SOURCE_DIR:STATIC=/home/harry/argosGoAround/loopFunction
-
-//Value Computed by CMake
-testLoopFunctions_BINARY_DIR:STATIC=/home/harry/argosGoAround/loopFunction/build
-
-//Dependencies for target
-testLoopFunctions_LIB_DEPENDS:STATIC=
-
-//Value Computed by CMake
-testLoopFunctions_SOURCE_DIR:STATIC=/home/harry/argosGoAround/loopFunction
-
-//Dependencies for target
-test_loop_functions_LIB_DEPENDS:STATIC=
 
 
 ########################

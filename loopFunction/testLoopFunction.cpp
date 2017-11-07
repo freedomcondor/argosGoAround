@@ -39,6 +39,7 @@ void testLoopFunction::Init(TConfigurationNode& t_tree)
 		printf("%s\n",strBaseId.c_str());
 	}
 
+	/////////////////////////////////////////////////////////////////
 	printf("read entity\n");
 	CEntity::TVector entities;
 	GetSpace().GetEntitiesMatching(entities,"obstacle");
@@ -52,6 +53,21 @@ void testLoopFunction::Init(TConfigurationNode& t_tree)
 	*/
 
 	pcCylinder = dynamic_cast<CCylinderEntity*>(entities[0]);
+
+	/////////////////////////////////////////////////////////////////
+
+	printf("create entity\n");
+	const CVector3 cv3 = CVector3(0.4,0.4,0);
+	const CVector3 size3 = CVector3(0.2,0.4,0.4);
+	const CQuaternion cq = CQuaternion(1,0,0,0);
+	pcBox = new CBoxEntity("testbox",
+							cv3,
+							cq,
+							false,
+							size3,
+							1);
+
+	AddEntity(*pcBox);
 	
 	//printf("%s\n",theObstacle->GetId().c_str());
 }
